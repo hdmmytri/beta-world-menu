@@ -122,9 +122,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         WorldCreator.Mode.CREATIVE
                 ))
                 .initially(this.worldCreator.getGameMode())
-                .build(centerX, padding * 3 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT, GAME_MODE_LABEL, (button, gameMode) -> {
-                    setGameMode(gameMode);
-                });
+                .build(centerX, padding * 3 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT, GAME_MODE_LABEL, (button, gameMode) ->
+                    setGameMode(gameMode)
+                );
         this.worldCreator.addListener(creator -> {
             this.gameModeButton.setValue(this.worldCreator.getGameMode());
             this.gameModeButton.active = !this.worldCreator.isDebug();
@@ -132,9 +132,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
         //allowCheatsButton
         this.allowCheatsButton = CyclingButtonWidget.onOffBuilder(this.worldCreator.areCheatsEnabled())
-                .build(rightColumnX, padding * 3 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT, ALLOW_CHEATS_TEXT, (button, allowCheats) -> {
-                    this.worldCreator.setCheatsEnabled(allowCheats);
-                });
+                .build(rightColumnX, padding * 3 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT, ALLOW_CHEATS_TEXT, (button, allowCheats) ->
+                    this.worldCreator.setCheatsEnabled(allowCheats)
+                );
         this.worldCreator.addListener(creator -> {
             this.allowCheatsButton.setValue(this.worldCreator.areCheatsEnabled());
             this.allowCheatsButton.active = !this.worldCreator.isDebug() && !this.worldCreator.isHardcore();
@@ -144,9 +144,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
         this.difficultyButton = CyclingButtonWidget.builder(Difficulty::getTranslatableName)
                 .values(Difficulty.values())
                 .initially(this.worldCreator.getDifficulty())
-                .build(centerX, padding * 4 + absY, BUTTON_WIDTH, BUTTON_HEIGHT, DIFFICULTY_TEXT, (button, difficulty) -> {
-                    this.worldCreator.setDifficulty(difficulty);
-                });
+                .build(centerX, padding * 4 + absY, BUTTON_WIDTH, BUTTON_HEIGHT, DIFFICULTY_TEXT, (button, difficulty) ->
+                    this.worldCreator.setDifficulty(difficulty)
+                );
         this.worldCreator.addListener(creator -> {
             this.difficultyButton.setValue(this.worldCreator.getDifficulty());
             this.difficultyButton.active = !this.worldCreator.isHardcore();
