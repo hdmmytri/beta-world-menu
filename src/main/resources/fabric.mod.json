@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "beta-world-menu",
+	"version": "${version}",
+	"name": "Beta-World-Menu",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/beta-world-menu/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.betaworldmenu.BetaWorldMenu"
+		],
+		"client": [
+			"com.betaworldmenu.BetaWorldMenuClient"
+		]
+	},
+	"mixins": [
+		"beta-world-menu.mixins.json",
+		{
+			"config": "beta-world-menu.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
