@@ -144,7 +144,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
         this.difficultyButton = CyclingButtonWidget.builder(Difficulty::getTranslatableName)
                 .values(Difficulty.values())
                 .initially(this.worldCreator.getDifficulty())
-                .build(centerX, + padding * 4 + absY, BUTTON_WIDTH, BUTTON_HEIGHT, DIFFICULTY_TEXT, (button, difficulty) -> {
+                .build(centerX, padding * 4 + absY, BUTTON_WIDTH, BUTTON_HEIGHT, DIFFICULTY_TEXT, (button, difficulty) -> {
                     this.worldCreator.setDifficulty(difficulty);
                 });
         this.worldCreator.addListener(creator -> {
