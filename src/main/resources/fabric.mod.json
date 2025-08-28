@@ -1,17 +1,17 @@
 {
 	"schemaVersion": 1,
 	"id": "beta-world-menu",
-	"version": "${version}",
+	"version": "0.1",
 	"name": "Beta-World-Menu",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Mod that brings the old and classic feel of world creation menu. No more tabs, just one clean page with elements",
 	"authors": [
-		"Me!"
+		"hl"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/project/beta-world-menu",
+		"sources": "https://github.com/hdmmytri/beta-world-menu"
 	},
-	"license": "CC0-1.0",
+	"license": "GNU v3",
 	"icon": "assets/beta-world-menu/icon.png",
 	"environment": "*",
 	"entrypoints": {
