@@ -19,10 +19,6 @@ public abstract class ScreenMixin {
     @Shadow
     protected abstract void init();
 
-    @Shadow
-    @Final
-    private List<Element> children;
-
     @Inject(method = "resize", at = @At("TAIL"))
     private void onResize(MinecraftClient client, int width, int height, CallbackInfo ci) {
         init();

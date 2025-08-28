@@ -1,13 +1,4 @@
 {
   "text.modmenu.betaworldmenu.title": "Beta World Menu",
-
-  "betaworldmenu.selectWorld.resultFolder": "Will be saved in:",
-  "betaworldmenu.selectWorld.gameMode.survival.line1": "Search for resources, craft, gain",
-  "betaworldmenu.selectWorld.gameMode.survival.line2": "levels, health and hunger",
-  "betaworldmenu.selectWorld.gameMode.hardcore.line1": "Same as Survival Mode, locked at hardest",
-  "betaworldmenu.selectWorld.gameMode.hardcore.line2": "difficulty, and one life only",
-  "betaworldmenu.selectWorld.gameMode.creative.line1": "Unlimited resources, free flying and",
-  "betaworldmenu.selectWorld.gameMode.creative.line2": "destroy blocks instantly",
-  "betaworldmenu.selectWorld.gameMode.spectator.line1": "You can look but don't touch",
-  "betaworldmenu.selectWorld.gameMode.spectator.line2": ""
+  "betaworldmenu.selectWorld.resultFolder": "Will be saved in:"
 }

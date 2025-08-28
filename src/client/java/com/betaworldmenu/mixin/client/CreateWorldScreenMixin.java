@@ -1,21 +1,15 @@
 package com.betaworldmenu.mixin.client;
 
 import com.betaworldmenu.betaworldmenu.Constants;
-import com.betaworldmenu.betaworldmenu.MoreWorldOptionsComponent;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
-import net.minecraft.client.gui.screen.world.EditGameRulesScreen;
 import net.minecraft.client.gui.screen.world.WorldCreator;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.gui.widget.CyclingButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.resource.DataConfiguration;
 import net.minecraft.text.Text;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.level.WorldGenSettings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,15 +19,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-//#if MC<=11904
-//$$ import net.minecraft.client.util.math.MatrixStack;
-//$$ import net.minecraft.client.gui.DrawableHelper;
-//$$ import org.spongepowered.asm.mixin.injection.Redirect;
-//$$ import org.objectweb.asm.Opcodes;
-//$$ import net.minecraft.util.Identifier;
-//#endif
-
-import java.io.Serial;
 import java.util.List;
 
 import static com.betaworldmenu.betaworldmenu.Constants.*;
@@ -47,22 +32,20 @@ public abstract class CreateWorldScreenMixin extends Screen {
     @Final
     WorldCreator worldCreator;
 
-    @Unique private MoreWorldOptionsComponent moreWorldOptionsComponent;
     @Unique private boolean isWorldOptionsToggled;
 
     @Unique private TextFieldWidget worldName;
     @Unique private Text worldDirectoryName;
 
     @Unique private TextFieldWidget worldSeed;
-    @Unique private Text worldSeedName;
 
     @Unique private CyclingButtonWidget<WorldCreator.Mode> gameModeButton;
 
     @Unique private CyclingButtonWidget<Difficulty> difficultyButton;
     @Unique private CyclingButtonWidget<Boolean> allowCheatsButton;
 
-    private ButtonWidget createNewWorldButton;
-    private ButtonWidget cancelButton;
+    @Unique private ButtonWidget createNewWorldButton;
+    @Unique private ButtonWidget cancelButton;
 
     @Unique private int halfWidth;
 
@@ -112,12 +95,10 @@ public abstract class CreateWorldScreenMixin extends Screen {
         this.remove(createNewWorldButton);
         this.remove(cancelButton);
 
-        this.moreWorldOptionsComponent = new MoreWorldOptionsComponent();
         this.halfWidth = this.width / 2;
 
         int centerX = this.halfWidth - 100;
 
-        int leftColumnX = centerX;
         int rightColumnX = centerX + BUTTON_WIDTH/2 + 2;
 
         int padding = 23;
@@ -141,7 +122,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         WorldCreator.Mode.CREATIVE
                 ))
                 .initially(this.worldCreator.getGameMode())
-                .build(leftColumnX, padding * 3 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT, GAME_MODE_LABEL, (button, gameMode) -> {
+                .build(centerX, padding * 3 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT, GAME_MODE_LABEL, (button, gameMode) -> {
                     setGameMode(gameMode);
                 });
         this.worldCreator.addListener(creator -> {
@@ -174,17 +155,12 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
         //other Buttons
         createNewWorldButton = ButtonWidget.builder(CREATE_NEW_WORLD_TEXT, button -> createLevel())
-                .dimensions(leftColumnX, padding * 5 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT)
+                .dimensions(centerX, padding * 5 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT)
                 .build();
 
         cancelButton = ButtonWidget.builder(CANCEL_TEXT, button -> close())
                 .dimensions(rightColumnX, padding * 5 + absY, BUTTON_WIDTH / 2 - 2, BUTTON_HEIGHT)
                 .build();
-
-        List<ClickableWidget> moreWorldOptionsElements = this.moreWorldOptionsComponent.init(
-                (CreateWorldScreen) (Object) this,
-                this.textRenderer
-        );
 
         addDrawableChild(this.worldName);
         addDrawableChild(this.worldSeed);
@@ -199,12 +175,10 @@ public abstract class CreateWorldScreenMixin extends Screen {
         setInitialFocus(this.worldName);
 
         this.worldCreator.update();
-//        updateGameModeHelp(this.worldCreator.getGameMode());
         updateWorldDirectoryName();
 
         ci.cancel();
     }
-
 
     @Inject(
             method = "keyPressed",
@@ -240,16 +214,6 @@ public abstract class CreateWorldScreenMixin extends Screen {
     @Unique
     private void setGameMode(WorldCreator.Mode gameMode) {
         this.worldCreator.setGameMode(gameMode);
-
-//        updateGameModeHelp(gameMode);
-    }
-
-    @Unique
-    private void updateGameModeHelp(WorldCreator.Mode gameMode) {
-        String gameModeName = gameMode.name().toLowerCase();
-        if (gameModeName.equals("debug")) {
-            gameModeName = "spectator";
-        }
     }
 
     @Unique
