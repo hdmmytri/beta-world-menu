@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "beta-world-menu",
-	"version": "0.1",
+	"version": "${version}",
 	"name": "Beta-World-Menu",
 	"description": "Mod that brings the old and classic feel of world creation menu. No more tabs, just one clean page with elements",
 	"authors": [
