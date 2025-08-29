@@ -1,6 +1,8 @@
 package com.betaworldmenu.mixin.client;
 
 import com.betaworldmenu.betaworldmenu.Constants;
+import com.betaworldmenu.config.BetaWorldMenuConfig;
+import net.minecraft.client.QuickPlayLogger;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
@@ -53,6 +55,10 @@ public abstract class CreateWorldScreenMixin extends Screen {
         super(title);
 
         this.isWorldOptionsToggled = false;
+    }
+
+    private static int clamp(int val, int min, int max) {
+        return Math.max(min, Math.min(max, val));
     }
 
     @Inject(
@@ -176,6 +182,17 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
         this.worldCreator.update();
         updateWorldDirectoryName();
+
+//        this.worldCreator.setWorldType(WorldType.);
+//
+        System.out.println(worldCreator.getNormalWorldTypes());
+//        System.out.println(worldCreator.getExtendedWorldTypes());
+        List<WorldCreator.WorldType> worldTypes = worldCreator.getNormalWorldTypes();
+
+        int configWorldTypeID = BetaWorldMenuConfig.get().worldTypeID;
+        int safeID = clamp(configWorldTypeID, 0, worldTypes.size());
+
+        this.worldCreator.setWorldType(worldTypes.get(safeID));
 
         ci.cancel();
     }
